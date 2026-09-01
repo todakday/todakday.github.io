@@ -1,0 +1,27 @@
+{
+  "name": "todakharu-site",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": "^18.20.8 || ^20.3.0 || >=22.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "fonts": "bash scripts/build-fonts.sh",
+    "og": "node scripts/build-og-image.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.2.9"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "playwright": "^1.62.1",
+    "typescript": "^6.0.3"
+  }
+}

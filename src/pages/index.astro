@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import InfoGrid from '../components/InfoGrid.astro';
+import Closing from '../components/Closing.astro';
+import FooterBand from '../components/FooterBand.astro';
+import FloatingCta from '../components/FloatingCta.astro';
+
+const title = '토닥하루 | 송도동 영유아 방문 돌봄 서비스';
+const description =
+  '인천 송도동 및 인근 지역, 유아특수교사 14년 경력의 전문 교사가 가정으로 방문해 영유아를 1:1로 돌봐드립니다. 발달이 느린 영유아, 장애 영유아도 환영합니다.';
+---
+
+<Base title={title} description={description}>
+  <main>
+    <Hero />
+    <InfoGrid />
+    <Closing />
+    <FooterBand />
+  </main>
+  <FloatingCta />
+</Base>

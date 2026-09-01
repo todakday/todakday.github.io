@@ -1,0 +1,72 @@
+---
+import { cards } from '../data/service';
+import InfoCard from './InfoCard.astro';
+---
+
+<section class="grid-wrap" aria-label="이용 안내">
+  <div class="grid">
+    {cards.map((card) => (
+      <div class="cell">
+        <InfoCard card={card} />
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .grid-wrap {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0.5rem 1.25rem 2.5rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* 원본 전단지의 초록 구분선을 카드 테두리로 재현 */
+  .cell {
+    border-right: 2px solid var(--line);
+    border-bottom: 2px solid var(--line);
+  }
+
+  /* 3열: 3번째마다 오른쪽 선 제거, 4번째부터(2행) 아래쪽 선 제거 */
+  .cell:nth-child(3n) {
+    border-right: none;
+  }
+  .cell:nth-child(n + 4) {
+    border-bottom: none;
+  }
+
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cell {
+      border-right: 2px solid var(--line);
+      border-bottom: 2px solid var(--line);
+    }
+    .cell:nth-child(2n) {
+      border-right: none;
+    }
+    .cell:nth-child(n + 5) {
+      border-bottom: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cell {
+      border-right: none;
+      border-bottom: 2px solid var(--line);
+    }
+    .cell:last-child {
+      border-bottom: none;
+    }
+  }
+</style>

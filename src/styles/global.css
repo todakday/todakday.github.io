@@ -1,0 +1,126 @@
+/* 토닥하루 — 전단지(docs/leaflet.png) 룩앤필을 재현하는 전역 토큰과 리셋 */
+
+@font-face {
+  font-family: 'Gaegu';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('/fonts/Gaegu-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Gaegu';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Gaegu-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Gaegu';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/Gaegu-Bold.woff2') format('woff2');
+}
+
+:root {
+  /* 전단지 배경/포인트 컬러 — docs/leaflet.png에서 실제 픽셀 색상을 추출해 보정.
+     brand-* 는 로고성 대형 텍스트 전용(WCAG 1.4.3 로고타입 예외), 나머지는
+     본문/제목 등 기능적 텍스트용으로 크림 배경 대비 4.5:1(본문) / 3:1(큰 굵은
+     텍스트) 이상을 만족하도록 어둡게 보정했다. */
+  --cream: #fdf6e3;
+  --cream-deep: #fbefd2;
+
+  --brand-orange: #d9631a; /* Hero 타이틀 '토닭' 전용 */
+  --brand-green: #6f9a3f; /* Hero 타이틀 '하루' 전용 */
+
+  --orange: #b84f10; /* 본문 강조, CTA 버튼 배경 (크림 대비 4.68) */
+  --green-deep: #4a6b26; /* 카드 제목/강조 (크림 대비 5.69) */
+  --red: #c23f2e; /* 카드 제목/요금 강조 (크림 대비 4.81) */
+  --pink: #b23f5a; /* 자격 보유 보조문구 (크림 대비 5.19) */
+
+  /* CTA 버튼 배경. 전단지 원본 주황(#e8722a)에 가깝게 두면서, 그 위의
+     어두운 잉크색 글자가 4.5:1을 넘도록 아주 살짝만 밝혔다. */
+  --orange-btn: #ea7830;
+
+  --orange-on-band: #8a3b10; /* 하단 초록 띠 위 '토닥' (띠 대비 4.58) */
+  --green-on-band: #3f5a20; /* 하단 초록 띠 위 '하루' (띠 대비 4.61) */
+  --ink-on-band: #2e4030; /* 하단 초록 띠 본문 (띠 대비 6.56) */
+
+  --green-band: #b6d091;
+  --pill: #f0cf5a;
+  --pill-text: #7a4a12;
+  --highlight: #f3e08a;
+  --ink: #3a2f1f;
+  --ink-soft: #5a4d38;
+  --line: #7fa64f;
+  --paper-edge: #f6e6b8;
+
+  --font-hand: 'Gaegu', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+
+  --max-width: 1040px;
+  --radius-pill: 999px;
+  --radius-card: 22px;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -1,0 +1,112 @@
+---
+import type { InfoCard } from '../data/service';
+import PillHeading from './PillHeading.astro';
+
+interface Props {
+  card: InfoCard;
+}
+
+const { card } = Astro.props;
+
+function splitHighlight(text: string, highlight?: string) {
+  if (!highlight) return [{ text, hl: false }];
+  const idx = text.indexOf(highlight);
+  if (idx === -1) return [{ text, hl: false }];
+  const before = text.slice(0, idx);
+  const after = text.slice(idx + highlight.length);
+  return [
+    ...(before ? [{ text: before, hl: false }] : []),
+    { text: highlight, hl: true },
+    ...(after ? [{ text: after, hl: false }] : []),
+  ];
+}
+---
+
+<article class="card" id={card.id}>
+  <PillHeading accent={card.titleAccent ?? 'ink'}>{card.title}</PillHeading>
+  <ul class="bullets">
+    {card.bullets.map((b) => (
+      <li>
+        <span class="marker" aria-hidden="true"></span>
+        <span class="content">
+          <span class="bullet-text">
+            {splitHighlight(b.text, b.highlight).map((part) =>
+              part.hl ? (
+                <strong class={`hl-${b.highlightAccent ?? 'red'}`}>{part.text}</strong>
+              ) : (
+                part.text
+              )
+            )}
+          </span>
+          {b.note && <span class={`note note-${b.noteAccent ?? 'pink'}`}>{b.note}</span>}
+        </span>
+      </li>
+    ))}
+  </ul>
+</article>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 1.5rem 1.25rem 1.75rem;
+  }
+
+  .bullets {
+    list-style: none;
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .bullets li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    text-align: left;
+  }
+
+  .marker {
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    margin-top: 0.55em;
+    border-radius: 50%;
+    background: var(--line);
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .bullet-text {
+    font-size: 1.1rem;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  .note {
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .note-pink {
+    color: var(--pink);
+  }
+
+  .hl-red {
+    color: var(--red);
+  }
+  .hl-orange {
+    color: var(--orange);
+  }
+  .hl-green {
+    color: var(--green-deep);
+  }
+</style>

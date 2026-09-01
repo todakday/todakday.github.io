@@ -1,0 +1,72 @@
+---
+import { contact } from '../data/service';
+---
+
+<div class="floating-cta" role="region" aria-label="빠른 문의">
+  <a class="fab fab-phone" href={contact.phoneHref}>
+    <span aria-hidden="true">📞</span> 전화 문의
+  </a>
+  {contact.kakaoHref ? (
+    <a class="fab fab-kakao" href={contact.kakaoHref}>
+      <span aria-hidden="true">💬</span> 카카오톡
+    </a>
+  ) : (
+    <span class="fab fab-kakao fab-disabled" aria-disabled="true">
+      <span aria-hidden="true">💬</span> 준비 중
+    </span>
+  )}
+</div>
+
+<style>
+  .floating-cta {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .floating-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.6rem 0.75rem;
+      padding-bottom: calc(0.6rem + env(safe-area-inset-bottom));
+      background: rgba(253, 246, 227, 0.95);
+      backdrop-filter: blur(6px);
+      border-top: 2px solid var(--line);
+      z-index: 40;
+    }
+
+    .fab {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.75rem 0.5rem;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-hand);
+      font-weight: 700;
+      font-size: 0.98rem;
+      text-decoration: none;
+    }
+
+    .fab-phone {
+      background: var(--orange-btn);
+      color: var(--ink);
+    }
+
+    .fab-kakao {
+      background: #ffe14d;
+      color: var(--ink);
+    }
+
+    .fab-disabled {
+      background: var(--cream-deep);
+      color: var(--ink-soft);
+      border: 2px solid var(--paper-edge);
+      pointer-events: none;
+    }
+  }
+</style>

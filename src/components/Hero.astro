@@ -1,0 +1,181 @@
+---
+import { brand, lead, contact } from '../data/service';
+import Clover from './Clover.astro';
+
+const accentClass: Record<string, string> = {
+  orange: 'seg-orange',
+  green: 'seg-green',
+};
+---
+
+<header class="hero">
+  <div class="title-row">
+    <h1 class="title">
+      {brand.nameParts.map((part) => (
+        <span class={`title-${part.color}`}>{part.text}</span>
+      ))}
+    </h1>
+    <span class="mascot"><Clover /></span>
+  </div>
+
+  <p class="badge">
+    <span class="dot" aria-hidden="true"></span>
+    {brand.badge}
+    <span class="dot" aria-hidden="true"></span>
+  </p>
+
+  <p class="lead">
+    {lead.segments.map((seg) => {
+      if ('accent' in seg && seg.accent) {
+        return <span class={accentClass[seg.accent]}>{seg.text}</span>;
+      }
+      return seg.text.split('\n').map((line, i) => (
+        <>
+          {i > 0 && <br />}
+          {line}
+        </>
+      ));
+    })}
+  </p>
+
+  <div class="cta-row">
+    <a class="cta cta-phone" href={contact.phoneHref}>
+      <span aria-hidden="true">📞</span> 전화로 문의하기
+    </a>
+    {contact.kakaoHref ? (
+      <a class="cta cta-kakao" href={contact.kakaoHref}>
+        <span aria-hidden="true">💬</span> 카카오톡 {contact.kakaoId}
+      </a>
+    ) : (
+      <span class="cta cta-kakao cta-disabled" aria-disabled="true">
+        <span aria-hidden="true">💬</span> 카카오톡 {contact.kakaoId}
+      </span>
+    )}
+  </div>
+</header>
+
+<style>
+  .hero {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: clamp(2rem, 6vw, 3.5rem) 1.25rem 1.5rem;
+    text-align: center;
+  }
+
+  .title-row {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+  }
+
+  .title {
+    font-family: var(--font-hand);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 12vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  .title-orange {
+    /* 로고타입 전용 색상 (WCAG 1.4.3 로고 예외) */
+    color: var(--brand-orange);
+  }
+  .title-green {
+    color: var(--brand-green);
+  }
+
+  .mascot {
+    display: inline-block;
+    flex-shrink: 0;
+    width: clamp(2.4rem, 8vw, 4rem);
+    height: clamp(2.4rem, 8vw, 4rem);
+    margin-top: -0.5rem;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 1.25rem auto 1.75rem;
+    padding: 0.55rem 1.75rem;
+    background: var(--pill);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-hand);
+    font-weight: 700;
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
+    color: var(--ink);
+  }
+
+  .badge .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #fff9e6;
+  }
+
+  .lead {
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: clamp(1.05rem, 2.6vw, 1.25rem);
+    line-height: 1.75;
+    color: var(--ink);
+  }
+
+  .seg-orange {
+    color: var(--orange);
+    font-weight: 700;
+  }
+  .seg-green {
+    color: var(--green-deep);
+    font-weight: 700;
+  }
+
+  .cta-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.9rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.6rem;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-hand);
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+    border: 2px solid transparent;
+    transition: transform 0.15s ease;
+  }
+
+  .cta:hover {
+    transform: translateY(-2px);
+  }
+
+  .cta-phone {
+    background: var(--orange-btn);
+    color: var(--ink);
+  }
+
+  .cta-kakao {
+    background: #ffe14d;
+    color: var(--ink);
+  }
+
+  /* 카카오톡 채널 링크 연결 전 상태.
+     opacity로 흐리게 하면 대비가 깨지므로 색상 자체를 차분하게 바꾼다. */
+  .cta-disabled {
+    background: var(--cream-deep);
+    color: var(--ink-soft);
+    border-color: var(--paper-edge);
+    cursor: default;
+    pointer-events: none;
+  }
+</style>

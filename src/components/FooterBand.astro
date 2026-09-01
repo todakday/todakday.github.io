@@ -1,0 +1,48 @@
+---
+import { footerBand } from '../data/service';
+---
+
+<footer class="band">
+  <p>
+    {footerBand.before}<strong
+      ><span class="b-orange">토닥</span><span class="b-green">하루</span></strong
+    >
+  </p>
+  <small>© {new Date().getFullYear()} 토닥하루. All rights reserved.</small>
+</footer>
+
+<style>
+  .band {
+    background: var(--green-band);
+    padding: 1.75rem 1.25rem 5.5rem;
+    text-align: center;
+    color: var(--ink-on-band);
+  }
+
+  p {
+    font-family: var(--font-hand);
+    font-weight: 700;
+    font-size: clamp(1.05rem, 3vw, 1.4rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .b-orange {
+    color: var(--orange-on-band);
+  }
+
+  .b-green {
+    color: var(--green-on-band);
+  }
+
+  small {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--ink-on-band);
+  }
+
+  @media (min-width: 641px) {
+    .band {
+      padding-bottom: 2.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,39 @@
+---
+import { closing } from '../data/service';
+---
+
+<section class="closing" aria-label="인사말">
+  <p>
+    {closing.lines.map((line, i) => (
+      <>
+        {i > 0 && <br />}
+        <mark>{line}</mark>
+      </>
+    ))}
+  </p>
+</section>
+
+<style>
+  .closing {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem 3rem;
+    text-align: center;
+  }
+
+  p {
+    font-family: var(--font-hand);
+    font-size: clamp(1.05rem, 2.6vw, 1.3rem);
+    line-height: 2.1;
+    color: var(--ink);
+  }
+
+  mark {
+    background: transparent;
+    background-image: linear-gradient(transparent 58%, var(--highlight) 58%, var(--highlight) 92%, transparent 92%);
+    color: var(--ink);
+    padding: 0 0.15em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+</style>
